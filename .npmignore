@@ -1,0 +1,24 @@
+# Internal agent/planning files
+.agents/
+AGENTS.md
+
+# Local-only config
+.pi/
+.vscode/
+.idea/
+.env
+.env.*
+.npmrc
+
+# VCS / packaging metadata
+.git/
+.github/
+.gitignore
+.npmignore
+package-lock.json
+
+# Misc
+.DS_Store
+*.log
+*.tgz
+*.tsbuildinfo
