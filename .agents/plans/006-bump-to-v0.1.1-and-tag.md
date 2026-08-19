@@ -1,6 +1,6 @@
 # Plan 006 — bump to v0.1.1, commit, and tag
 
-**Status:** in progress
+**Status:** done
 
 ## Goal
 
