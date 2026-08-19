@@ -70,6 +70,16 @@ before_provider_request ──► first *_delta ──► ...deltas... ──►
 - Throttle `setStatus` calls during streaming (~4/sec) — deltas arrive fast.
 - Aborted/error streams: keep whatever partial metrics exist; don't crash on missing data.
 
+## Publishing / release notes
+
+- The unscoped npm package name **`pi-speedometer` is already taken** by another package, so this repo cannot be published to npm under that exact name.
+- Current GitHub repo: `https://github.com/championswimmer/pi-speedometer`
+- `npm pack --dry-run` currently includes only:
+  - `README.md`
+  - `package.json`
+  - `src/index.ts`
+- Before publishing, pick an alternate npm name (recommended: `@championswimmer/pi-speedometer`), then update `package.json.name` and publish.
+
 ## Settings
 
 - Stored globally at `~/.pi/agent/pi-speedometer.json` (created on first write), shape: `{ "showTps": boolean, "showTtft": boolean }` (both default `true`).
@@ -82,3 +92,6 @@ before_provider_request ──► first *_delta ──► ...deltas... ──►
 - [x] Extension implemented (`src/index.ts`, `package.json`, `README.md`)
 - [x] Smoke-tested with `pi -e ./src/index.ts -p "..."` (loads clean, LLM call succeeded)
 - [x] End-to-end verified via RPC mode (`pi --mode rpc -e ./src/index.ts`): live `setStatus` stream (⚡ t/s + ⏱ ttft), `/speed tps off` toggle + re-render, `/speed` status notify, settings persisted to `~/.pi/agent/pi-speedometer.json`
+- [x] Git repo initialized, `.gitignore` + `.npmignore` added, GitHub repo created and pushed: `championswimmer/pi-speedometer`
+- [x] npm package contents verified with `npm pack --dry-run` (only runtime files included)
+- [ ] Publish to npm under a new available package name

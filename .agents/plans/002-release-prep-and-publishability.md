@@ -1,6 +1,6 @@
 # Plan 002 — release prep, repo creation, and publishability
 
-**Status:** in progress
+**Status:** done
 
 ## Goals
 
