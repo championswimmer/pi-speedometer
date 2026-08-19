@@ -72,13 +72,14 @@ before_provider_request ──► first *_delta ──► ...deltas... ──►
 
 ## Publishing / release notes
 
-- The unscoped npm package name **`pi-speedometer` is already taken** by another package, so this repo cannot be published to npm under that exact name.
+- The unscoped npm package name **`pi-speedometer` is already taken** by another package.
+- Chosen npm package name: **`@championswimmer/pi-speedometer`**
+- `package.json` should keep `publishConfig.access = "public"` so the scoped package publishes publicly.
 - Current GitHub repo: `https://github.com/championswimmer/pi-speedometer`
-- `npm pack --dry-run` currently includes only:
+- `npm pack --dry-run` should include only:
   - `README.md`
   - `package.json`
   - `src/index.ts`
-- Before publishing, pick an alternate npm name (recommended: `@championswimmer/pi-speedometer`), then update `package.json.name` and publish.
 
 ## Settings
 
@@ -94,4 +95,5 @@ before_provider_request ──► first *_delta ──► ...deltas... ──►
 - [x] End-to-end verified via RPC mode (`pi --mode rpc -e ./src/index.ts`): live `setStatus` stream (⚡ t/s + ⏱ ttft), `/speed tps off` toggle + re-render, `/speed` status notify, settings persisted to `~/.pi/agent/pi-speedometer.json`
 - [x] Git repo initialized, `.gitignore` + `.npmignore` added, GitHub repo created and pushed: `championswimmer/pi-speedometer`
 - [x] npm package contents verified with `npm pack --dry-run` (only runtime files included)
-- [ ] Publish to npm under a new available package name
+- [x] Package renamed to scoped npm name: `@championswimmer/pi-speedometer`
+- [ ] Publish to npm

@@ -1,8 +1,17 @@
 {
-  "name": "pi-speedometer",
+  "name": "@championswimmer/pi-speedometer",
   "version": "0.1.0",
   "description": "pi extension: live tokens/sec and time-to-first-token in the status bar",
   "type": "module",
   "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/championswimmer/pi-speedometer.git"
+  },
+  "homepage": "https://github.com/championswimmer/pi-speedometer#readme",
+  "bugs": {
+    "url": "https://github.com/championswimmer/pi-speedometer/issues"
+  },
   "pi": { "extensions": ["./src/index.ts"] }
 }

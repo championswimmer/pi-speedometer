@@ -1,4 +1,4 @@
-# pi-speedometer
+# @championswimmer/pi-speedometer
 
 A [pi](https://github.com/earendil-works/pi-coding-agent) extension that shows live LLM streaming performance in the status bar:
 
@@ -28,10 +28,10 @@ Hot-reload inside pi with `/reload`.
 pi -e ./src/index.ts
 ```
 
-**As a package (once published):**
+**As a package (published on npm under the scoped name):**
 
 ```sh
-pi install pi-speedometer
+pi install @championswimmer/pi-speedometer
 ```
 
 ## Usage
@@ -45,6 +45,8 @@ The `/speed` command controls what is shown:
 | `/speed ttft on\|off` | Toggle the time-to-first-token readout |
 
 Settings persist globally at `~/.pi/agent/pi-speedometer.json`. With both metrics off, the status entry is cleared.
+
+> Note: the npm package uses the scoped name `@championswimmer/pi-speedometer` because the unscoped `pi-speedometer` name is already taken on npm.
 
 ## Notes
 
