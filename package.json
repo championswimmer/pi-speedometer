@@ -1,6 +1,6 @@
 {
   "name": "@championswimmer/pi-speedometer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "pi extension: live tokens/sec and time-to-first-token in the status bar",
   "type": "module",
   "license": "MIT",
