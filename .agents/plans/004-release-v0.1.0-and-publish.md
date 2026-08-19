@@ -1,6 +1,6 @@
 # Plan 004 — release v0.1.0 and publish
 
-**Status:** in progress
+**Status:** done (publish attempted; blocked by npm registry auth/scope access)
 
 ## Goal
 

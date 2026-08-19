@@ -96,4 +96,5 @@ before_provider_request ──► first *_delta ──► ...deltas... ──►
 - [x] Git repo initialized, `.gitignore` + `.npmignore` added, GitHub repo created and pushed: `championswimmer/pi-speedometer`
 - [x] npm package contents verified with `npm pack --dry-run` (only runtime files included)
 - [x] Package renamed to scoped npm name: `@championswimmer/pi-speedometer`
-- [ ] Publish to npm
+- [x] Git tag `v0.1.0` created and pushed to GitHub
+- [ ] Publish to npm (attempted; blocked by npm registry auth/scope access — `npm publish` returned 404 for `@championswimmer/pi-speedometer` and `npm whoami` was unauthorized)
