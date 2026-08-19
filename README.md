@@ -31,7 +31,7 @@ pi -e ./src/index.ts
 **As a package (published on npm under the scoped name):**
 
 ```sh
-pi install @championswimmer/pi-speedometer
+pi install npm:@championswimmer/pi-speedometer
 ```
 
 ## Usage
