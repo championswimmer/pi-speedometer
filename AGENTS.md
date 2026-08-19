@@ -83,8 +83,8 @@ before_provider_request ──► first *_delta ──► ...deltas... ──►
 
 ## Settings
 
-- Stored globally at `~/.pi/agent/pi-speedometer.json` (created on first write), shape: `{ "showTps": boolean, "showTtft": boolean }` (both default `true`).
-- `/speed` command: no args → show current settings; `tps on|off` / `ttft on|off` → toggle + persist.
+- Stored globally at `~/.pi/agent/pi-speedometer.json` (created on first write), shape: `{ "showTps": boolean, "showTtft": boolean, "tpsStyle": "icon"|"text", "ttftStyle": "icon"|"text" }` (defaults: both metrics enabled, both styles set to `"icon"`).
+- `/speed` command: no args → show current settings; `tps on|off` / `ttft on|off` → toggle visibility + persist; `tps icon|text` / `ttft icon|text` → switch the label style.
 
 ## Status
 

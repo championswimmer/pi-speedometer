@@ -26,13 +26,26 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 // Settings
 // ---------------------------------------------------------------------------
 
+type SpeedStyle = "icon" | "text";
+
 interface SpeedSettings {
 	showTps: boolean;
 	showTtft: boolean;
+	tpsStyle: SpeedStyle;
+	ttftStyle: SpeedStyle;
 }
 
-const DEFAULTS: SpeedSettings = { showTps: true, showTtft: true };
+const DEFAULTS: SpeedSettings = {
+	showTps: true,
+	showTtft: true,
+	tpsStyle: "icon",
+	ttftStyle: "icon",
+};
 const SETTINGS_PATH = join(homedir(), ".pi", "agent", "pi-speedometer.json");
+
+function coerceStyle(raw: unknown, fallback: SpeedStyle): SpeedStyle {
+	return raw === "text" || raw === "icon" ? raw : fallback;
+}
 
 function loadSettings(): SpeedSettings {
 	try {
@@ -40,6 +53,8 @@ function loadSettings(): SpeedSettings {
 		return {
 			showTps: typeof raw.showTps === "boolean" ? raw.showTps : DEFAULTS.showTps,
 			showTtft: typeof raw.showTtft === "boolean" ? raw.showTtft : DEFAULTS.showTtft,
+			tpsStyle: coerceStyle(raw.tpsStyle, DEFAULTS.tpsStyle),
+			ttftStyle: coerceStyle(raw.ttftStyle, DEFAULTS.ttftStyle),
 		};
 	} catch {
 		return { ...DEFAULTS }; // missing or corrupt file -> defaults
@@ -84,6 +99,11 @@ function formatTps(tps: number): string {
 	return tps >= 100 ? String(Math.round(tps)) : tps.toFixed(1);
 }
 
+function formatMetricLabel(metric: "tps" | "ttft", style: SpeedStyle): string {
+	if (style === "icon") return metric === "tps" ? "⚡" : "⏱";
+	return metric === "tps" ? "TPS" : "TTFT";
+}
+
 /** Compact duration: "412ms" under a second, "1.23s" above. */
 function formatDuration(ms: number): string {
 	return ms < 1000 ? `${Math.round(ms)}ms` : `${(ms / 1000).toFixed(2)}s`;
@@ -109,9 +129,15 @@ export default function (pi: ExtensionAPI) {
 		const parts: string[] = [];
 		if (settings.showTps && firstDeltaTime !== null) {
 			const durationSec = (endTime - firstDeltaTime) / 1000;
-			if (durationSec > 0 && tokens > 0) parts.push(`⚡ ${formatTps(tokens / durationSec)} t/s`);
+			if (durationSec > 0 && tokens > 0) {
+				const label = formatMetricLabel("tps", settings.tpsStyle);
+				parts.push(`${label} ${formatTps(tokens / durationSec)} t/s`);
+			}
 		}
-		if (settings.showTtft && ttftMs !== null) parts.push(`⏱ ${formatDuration(ttftMs)}`);
+		if (settings.showTtft && ttftMs !== null) {
+			const label = formatMetricLabel("ttft", settings.ttftStyle);
+			parts.push(`${label} ${formatDuration(ttftMs)}`);
+		}
 		ctx.ui.setStatus(STATUS_KEY, parts.length > 0 ? parts.join(" ") : undefined);
 	}
 
@@ -166,31 +192,42 @@ export default function (pi: ExtensionAPI) {
 	pi.on("session_shutdown", settle);
 
 	pi.registerCommand("speed", {
-		description: "Configure pi-speedometer display: /speed [tps|ttft] [on|off]",
+		description: "Configure pi-speedometer display: /speed [tps|ttft] [on|off|icon|text]",
 		handler: async (args, ctx) => {
 			const [sub, value] = args.trim().toLowerCase().split(/\s+/);
 
 			if (!sub) {
 				ctx.ui.notify(
-					`pi-speedometer: tps=${settings.showTps ? "on" : "off"} ttft=${settings.showTtft ? "on" : "off"}`,
+					`pi-speedometer: tps=${settings.showTps ? "on" : "off"}(${settings.tpsStyle}) ttft=${settings.showTtft ? "on" : "off"}(${settings.ttftStyle})`,
 					"info",
 				);
 				return;
 			}
 
-			if ((sub === "tps" || sub === "ttft") && (value === "on" || value === "off")) {
-				const on = value === "on";
-				if (sub === "tps") settings.showTps = on;
-				else settings.showTtft = on;
-				saveSettings(settings);
-				ctx.ui.notify(`pi-speedometer: ${sub} ${value}`, "info");
-				// Immediately reflect the toggle in the status bar.
-				if (lastTokens > 0 || lastTtftMs !== null) renderStatus(ctx, lastTokens, lastTtftMs, performance.now());
-				else ctx.ui.setStatus(STATUS_KEY, undefined);
-				return;
+			if (sub === "tps" || sub === "ttft") {
+				if (value === "on" || value === "off") {
+					const on = value === "on";
+					if (sub === "tps") settings.showTps = on;
+					else settings.showTtft = on;
+					saveSettings(settings);
+					ctx.ui.notify(`pi-speedometer: ${sub} ${value}`, "info");
+					if (lastTokens > 0 || lastTtftMs !== null) renderStatus(ctx, lastTokens, lastTtftMs, performance.now());
+					else ctx.ui.setStatus(STATUS_KEY, undefined);
+					return;
+				}
+
+				if (value === "icon" || value === "text") {
+					if (sub === "tps") settings.tpsStyle = value;
+					else settings.ttftStyle = value;
+					saveSettings(settings);
+					ctx.ui.notify(`pi-speedometer: ${sub} ${value}`, "info");
+					if (lastTokens > 0 || lastTtftMs !== null) renderStatus(ctx, lastTokens, lastTtftMs, performance.now());
+					else ctx.ui.setStatus(STATUS_KEY, undefined);
+					return;
+				}
 			}
 
-			ctx.ui.notify("Usage: /speed [tps|ttft] [on|off]", "warning");
+			ctx.ui.notify("Usage: /speed [tps|ttft] [on|off|icon|text]", "warning");
 		},
 	});
 }

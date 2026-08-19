@@ -36,15 +36,28 @@ pi install npm:@championswimmer/pi-speedometer
 
 ## Usage
 
-The `/speed` command controls what is shown:
+The `/speed` command controls what is shown and how it is labeled:
 
 | Command | Effect |
 |---|---|
-| `/speed` | Show current settings |
+| `/speed` | Show current settings summary |
 | `/speed tps on\|off` | Toggle the tokens/sec readout |
 | `/speed ttft on\|off` | Toggle the time-to-first-token readout |
+| `/speed tps icon\|text` | Switch the TPS label between `⚡` and `TPS` |
+| `/speed ttft icon\|text` | Switch the TTFT label between `⏱` and `TTFT` |
 
-Settings persist globally at `~/.pi/agent/pi-speedometer.json`. With both metrics off, the status entry is cleared.
+Settings persist globally at `~/.pi/agent/pi-speedometer.json`, with the shape:
+
+```json
+{
+  "showTps": true,
+  "showTtft": true,
+  "tpsStyle": "icon",
+  "ttftStyle": "icon"
+}
+```
+
+With both metrics off, the status entry is cleared.
 
 > Note: the npm package uses the scoped name `@championswimmer/pi-speedometer` because the unscoped `pi-speedometer` name is already taken on npm.
 
