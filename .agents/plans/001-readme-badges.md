@@ -18,4 +18,4 @@
 ## Status
 - [x] Plan created
 - [x] README badges added
-- [x] PR prepared
+- [x] PR prepared and opened
