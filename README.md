@@ -1,5 +1,8 @@
 # @championswimmer/pi-speedometer
 
+[![npm version](https://img.shields.io/npm/v/@championswimmer/pi-speedometer?style=flat-square)](https://www.npmjs.com/package/@championswimmer/pi-speedometer)
+[![npm downloads](https://img.shields.io/npm/dt/@championswimmer/pi-speedometer?style=flat-square)](https://www.npmjs.com/package/@championswimmer/pi-speedometer)
+
 A [pi](https://github.com/earendil-works/pi-coding-agent) extension that shows live LLM streaming performance in the status bar:
 
 ```
