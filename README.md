@@ -1,5 +1,9 @@
 # @championswimmer/pi-speedometer
 
+> ⚠️ **Deprecated — use [pi-gauge](https://github.com/championswimmer/pi-gauge) instead.**
+> `pi-speedometer` is superseded by `pi-gauge` (same live tokens/sec + TTFT status bar, plus e2e/stream modes, pill/compact display, and emoji/Nerd Font icons).
+> Install it with `pi install npm:pi-gauge`.
+
 [![npm version](https://img.shields.io/npm/v/@championswimmer/pi-speedometer?style=flat-square)](https://www.npmjs.com/package/@championswimmer/pi-speedometer)
 [![npm downloads](https://img.shields.io/npm/dt/@championswimmer/pi-speedometer?style=flat-square)](https://www.npmjs.com/package/@championswimmer/pi-speedometer)
 
@@ -21,7 +25,7 @@ Values update live while streaming (throttled to ~4/sec) and the final exact num
 - [![pi-checklist](https://img.shields.io/badge/✅_pi--checklist-teal?style=flat-square)](https://github.com/championswimmer/pi-checklist) — Session task checklist with dependencies and a TUI renderer.
 - [![pi-context-prune](https://img.shields.io/badge/✂️_pi--context--prune-green?style=flat-square)](https://github.com/championswimmer/pi-context-prune) — Prunes verbose tool outputs from context while preserving history.
 - [![pi-context-usage](https://img.shields.io/badge/🪟_pi--context--usage-purple?style=flat-square)](https://github.com/championswimmer/pi-context-usage) — Dot-grid visualization of context window token usage.
-- [![pi-speedometer](https://img.shields.io/badge/⚡_pi--speedometer-yellow?style=flat-square)](https://github.com/championswimmer/pi-speedometer) — Live tokens/sec and TTFT in the status bar.
+- [![pi-gauge](https://img.shields.io/badge/⚡_pi--gauge-yellow?style=flat-square)](https://github.com/championswimmer/pi-gauge) — Live tokens/sec and TTFT in the status bar.
 - [![pi-subscription-meter](https://img.shields.io/badge/💳_pi--subscription--meter-red?style=flat-square)](https://github.com/championswimmer/pi-subscription-meter) — Tracks subscription quotas and rate limits across AI providers.
 
 ## Install
